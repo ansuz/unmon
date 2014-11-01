@@ -34,15 +34,14 @@ That should do it! This server isn't much use, though.
 
 To enhance its behaviour, you can try interacting directly directly from the REPL.
 
-$ node  
+> $ node  
 > var app=require("./lib/unmon.js");  
-  
 > app.launch({  
 ... address:"fcbf:8145:9f55:202:908f:bcce:c01e:caf2"  
 ... ,main:function(req,res){  
 ..... res.send("hey buddy");  
 ..... }});  
-undefined  
+> undefined  
 > ohai!  
 
 
