@@ -58,3 +58,7 @@ So far it accepts a JSON object with the following properties:
 All of these are optional.
 
 unmon is built on top of expressjs, so for an idea of what kinds of functions you can pass, just look at its documentation.
+
+## Plugin Architecture
+
+Unmon features a flexible plugin architecture which you can use in one of several ways.
