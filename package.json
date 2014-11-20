@@ -1,6 +1,6 @@
 {
   "name": "unmon",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "webdev made easy",
   "main": "index.js",
   "scripts": {
