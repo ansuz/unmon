@@ -1,6 +1,6 @@
 {
   "name": "unmon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "webdev made easy",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "url": "https://github.com/ansuz/unmon/issues"
   },
   "homepage": "https://github.com/ansuz/unmon",
+  "files":["lib","blag","unmon.js"],
   "dependencies": {
     "ansuz":"*",
     "express": "^4.10.1",
