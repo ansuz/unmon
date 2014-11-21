@@ -16,7 +16,12 @@ var unmon=function(O){
 
   app.get("*",require(path+"cors.js"));
   app.get("*",require(path+"analytics.js"));
-  app.get("*",require(path+"md.js")(O.mdpath));
+
+/* the old way of doing it */
+//  app.get("*",require(path+"md.js")(O.mdpath));
+
+/* The new way will be more flexible */
+  app.get("*",require(path+"md.js")({path:O.mdpath}));
   require(path+"stationary.js")(app,{
     "/":O.staticpath  
   });
