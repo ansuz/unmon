@@ -34,3 +34,15 @@ Ummon: "Begin walking it!"
 ```
 
 The central philosophy behind **unmon** is that software should simplify repetitive tasks without obfuscating their details.
+
+## Installation
+
+```
+git clone https://github.com/ansuz/unmon.git
+```
+
+## Execution
+
+```
+node unmon.js
+```
