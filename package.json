@@ -1,7 +1,7 @@
 {
   "name": "unmon",
-  "version": "0.0.7",
-  "description": "webdev made easy",
+  "version": "0.0.10",
+  "description": "zen blagging",
   "main": "unmon.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,13 +14,27 @@
     "web",
     "markdown"
   ],
-  "author": "ansuz",
+  "author": {
+    "name": "ansuz"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ansuz/unmon/issues"
   },
   "homepage": "https://github.com/ansuz/unmon",
-  "files":["./lib/blag.js","./lib/marked.js","./unmon.js"],
-  "dependencies": {
-  }
+  "files": [
+    "lib",
+    "md",
+    "static",
+    "LICENSE",
+    "unmon.js"
+  ],
+  "dependencies": {},
+  "readme": "```text\n'Said Ummon to his disciples,\n \"However wonderful a thing is,\n it may be that it is better\n not to have it at all.\"\n```\n\nIntroducing [unmon](http://en.wikipedia.org/wiki/Yunmen_Wenyan)!\n\n**unmon** is a minimalist blogging framework.\n\n```text\nA monk once asked Ummon,\n  \"What is this place where knowledge is useless?\"\nUmmon answered him: \n  \"Knowledge and emotion cannot fathom it!\"\n```\n\n**unmon** only depends on the nodejs runtime. \n\nThat means:\n\n* You don't need any external js modules\n* You don't need to install a database\n* You don't need to remember any new passwords\n\n```text\nMonk: \"What is the one road of Ummon?\"\nUmmon: \"Personal Experience!\"\nMonk: \"What is the Way?\"\nUmmon: \"Go!\"\nMonk: \"What is the road, where is the Way?\"\nUmmon: \"Begin walking it!\"\n```\n\nThe central philosophy behind **unmon** is that software should simplify repetitive tasks without obfuscating their details.\n\n## Installation\n\n```\ngit clone https://github.com/ansuz/unmon.git\n```\n\n## Execution\n\n```\nnode unmon.js\n```\n",
+  "readmeFilename": "README.md",
+  "gitHead": "c3ddc9f5a0dc65c46f877558faa4522e1905caf8",
+  "_id": "unmon@0.0.10",
+  "_shasum": "269d4df61ee6ef3026612e236b2bcae617259e3b",
+  "_from": "unmon@"
 }
+
