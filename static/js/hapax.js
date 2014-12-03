@@ -1,4 +1,9 @@
-var cache={},swap=function(s,o){return s.replace(/{\w+}/g,function(k){return o[k]||k;});};
+var cache={}
+  ,swap=function(s,o){return s.replace(/{\w+}/g,function(k){return o[k]||k;});};
+var stopAndRender=function(e){
+  $.stop(e);
+  render($(this).attr('id'));
+};
 
 var makeAnchors=function(){
   var $toc=$('.toc');
@@ -16,18 +21,33 @@ var makeAnchors=function(){
   }else{
     $toc.html("<ul>"+headings+"</ul>");
     $toc.show();
+    $toc.css("display","block");
   }
 };
 
 var render = function(key,back){
   if(!key)return;
   if(key in cache){
-    $('#main > .header > h1').html("//"+key);
-    $('#content').html(cache[key]); // set title of page.
-    if(!back)window.history.pushState("", key, "/"+key);
+    console.log("rendering %s",key);
+    $('#main > .header > h1').html("[ "+key+" ]"); // set title of page.
+    $('#content').html(cache[key]);
     makeAnchors();
+    // make in-page links behave like the nav bar
+    $('#content a').each(function(e){
+      // determine if it's a local link
+      var $e=$(e);
+      var link=$e.attr('href')||"!";
+      if(link[0]==='/'){ // it's a local link
+        $e.on('click',function(e){
+          $.stop(e);
+          render(link.slice(1));
+        });
+      }
+    });
+    if(!back)window.history.pushState("", key, "/"+key);
   }else{
     $.ajax("/"+key+".json",function(k){
+      console.log("fetching %s",key);
       cache[key] = marked(JSON.parse(k).txt);
       render(key);
     });
@@ -48,6 +68,10 @@ $(function(){ // wait until the page has loaded
     });
   })();
 
+  // in body links are not currently being treated like sidebar links
+  // they trigger a page reload, this should be factored out
+  // and applied to all in page links
+
   $.ajax("/nav.json",function(res){ // get the navigation data
     var nav=JSON.parse(res).nav; // fetch the navigation data
     // On page ready, fill up the sidebar menu..
@@ -55,13 +79,7 @@ $(function(){ // wait until the page has loaded
       return "<li><a id='"+x+"' href='/"+x+"'>"+x+"</a></li>";
     }).join(""));
     // if they click a local link, fetch it, cache it, and render it
-    $('#nav-list > li > a').on('click',function(e){
-      $.stop(e); // prevent default behaviour
-      var key=$(this).attr('id');
-      $.ajax('/'+key+".json",function(k){
-        render(key);
-      });
-    }); 
+    $('#nav-list > li > a').on('click',stopAndRender); 
   });
 
 // cache the original content, since you won't be fetching it again...

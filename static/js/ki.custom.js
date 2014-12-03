@@ -228,6 +228,17 @@ $.prototype.is = function(a) {
   }
 };
 
+$.prototype.create=function(type,id){
+  var temp=document.createElement(type);
+  if(id)temp.id=id;
+  this[0].appendChild(temp);
+  return temp;
+};
+
+$.prototype.resize=function(e,f){
+  e.addEventListener('resize',f);
+};
+
 $.map = function(arr, fn) {
   var results = [];
   var i = 0, l = arr.length;
