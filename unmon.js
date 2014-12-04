@@ -13,9 +13,7 @@ var blag=require("./lib/blag.js")({
 
 var nope=require("./lib/nope.js");
 
-var p404=process.env.PWD+"/static/404.html";
-console.log(p404);
-var f404=require("./lib/parcel.js")(p404);
+var f404=require("./lib/parcel.js")(process.env.PWD+"/static/html/404.html");
 
 /* Support Functions */
 var routes=[];
