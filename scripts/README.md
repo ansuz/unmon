@@ -10,7 +10,7 @@ It must contain all the keys shown in the example below. Items with empty title 
 {"items":[
    {"title":"","link":"","description":""}
   ,{"title":"","link":"","description":""}
-  }
+  ]
  ,"TITLE":""
  ,"LINK":""
  ,"DESCRIPTION":""
@@ -22,4 +22,10 @@ To use it, just call it from the command line, and redirect its output to your r
 
 ```Bash
 rss.js > ../path/to/feed.xml
+```
+
+By default, it will look for a file named `rss.json`, but you can also specify any valid JSON file and it will use that instead.
+
+```Bash
+rss.js feed.json > ../path/to/feed.xml
 ```

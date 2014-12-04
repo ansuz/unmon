@@ -32,7 +32,7 @@ var plate=function(s,o){
   });
 };
 
-var parts=require("./rss.json");
+var parts=JSON.parse(fs.readFileSync(process.argv[2]||"./rss.json","utf8"));
 
 var newItem=function(title,link,description){
   return plate(item,{
