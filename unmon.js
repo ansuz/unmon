@@ -1,9 +1,21 @@
 var http=require("http");
 var fs=require("fs");
+
+var cors=require("./lib/cors.js");
+
+var fixed=require("./lib/fixed.js")(process.env.PWD+"/static");
+
 var blag=require("./lib/blag.js")({
   path:process.env.PWD+"/md/"
   ,title:""
+  ,home:"index"
 });
+
+var nope=require("./lib/nope.js");
+
+var p404=process.env.PWD+"/static/404.html";
+console.log(p404);
+var f404=require("./lib/parcel.js")(p404);
 
 /* Support Functions */
 var routes=[];
@@ -18,38 +30,8 @@ var route=function(patt,f){
   });
 };
 
-/* Static route */
-var Static=function(statpath){
-  return function(req,res,next){
-    var path=statpath+req.url;
-    fs.exists(path,function(e){
-      if(e){
-        fs.readFile(path,"utf8",function(err,data){
-          if(err){
-            console.log(err);
-            next(req,res);
-          }else{
-            if(path.match(/\.json$/))
-              res.writeHead(200,{"Content-Type":"text/plain;charset=utf-8"});
-            res.end(data);
-            res.end();
-          }
-        });
-      }else{
-        next(req,res);
-      }
-    });
-  };
-}(process.env.PWD+"/static");
-
 /* Enable CORS */
-route(/.*/,function(req,res,next){
-//  console.log("Enabling CORS");
-  res.setHeader("Access-Control-Allow-Origin","*");
-  res.setHeader("Access-Control-Allow-Methods","GET");
-  res.setHeader("Access-Control-Allow-Headers","X-Requested-With");
-  next(req,res);
-});
+route(/.*/,cors);
 
 /* Logger */
 route(/.*/,function(req,res,next){
@@ -61,13 +43,12 @@ route(/.*/,function(req,res,next){
 route(/.*/,blag);
 
 /* Route static files */
-route(/.*/,Static);
+route(/.*/,fixed);
+
+route(/.*/,f404);
 
 /* 404 Route */
-route(/.*/,function(req,res){
-  res.write("<p>404");
-  res.end();
-});
+route(/.*/,nope);
 
 var router=routes
   .reduceRight(function(b,a,i,z){
@@ -76,6 +57,13 @@ var router=routes
     };
   });
 
-var server=http.createServer(router);
+var port=8083;
+var addresses=[""]; // the array of addresses on which to listen
 
-server.listen(8083);
+var servers=addresses.map(function(addy){
+  var server=http.createServer(router);
+  server.listen(port,addy,function(){
+    console.log("unmon is running on %s:%s",addy,port);
+  });
+  return server;
+});
