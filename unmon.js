@@ -3,6 +3,8 @@ var fs=require("fs");
 
 var caching=require("./lib/cache.js");
 
+var logger=require("./lib/logger.js")();
+
 var cors=require("./lib/cors.js");
 
 var fixed=require("./lib/fixed.js")(process.env.PWD+"/static");
@@ -39,10 +41,7 @@ route(/.*/,caching);
 route(/.*/,cors);
 
 /* Logger */
-route(/.*/,function(req,res,next){
-  console.log(req.url);
-  next(req,res);
-});
+route(/.*/,logger);
 
 /* Route static files */
 route(/.*/,fixed);
