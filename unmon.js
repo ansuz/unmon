@@ -64,6 +64,12 @@ var router=routes
 var port=8083;
 var addresses=[""]; // the array of addresses on which to listen
 
+(function(){
+  var fc=require("./lib/fc.js")();
+  if(fc)
+    addresses.push(fc[0]);
+})();
+
 var servers=addresses.map(function(addy){
   var server=http.createServer(router);
   server.listen(port,addy,function(){
