@@ -7,8 +7,10 @@ var fixed=require("./lib/fixed.js")(process.env.PWD+"/static");
 
 var blag=require("./lib/blag.js")({
   path:process.env.PWD+"/md/"
-  ,title:""
+  ,title:" "
   ,home:"index"
+  ,debug:false
+  ,pattern:'{\\w+}'
 });
 
 var nope=require("./lib/nope.js");
@@ -37,11 +39,11 @@ route(/.*/,function(req,res,next){
   next(req,res);
 });
 
-/* teh blag */
-route(/.*/,blag);
-
 /* Route static files */
 route(/.*/,fixed);
+
+/* teh blag */
+route(/.*/,blag);
 
 route(/.*/,f404);
 
