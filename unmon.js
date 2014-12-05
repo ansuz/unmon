@@ -1,6 +1,8 @@
 var http=require("http");
 var fs=require("fs");
 
+var caching=require("./lib/cache.js");
+
 var cors=require("./lib/cors.js");
 
 var fixed=require("./lib/fixed.js")(process.env.PWD+"/static");
@@ -29,6 +31,9 @@ var route=function(patt,f){
     }
   });
 };
+
+/* Check filetype and cache */
+route(/.*/,caching);
 
 /* Enable CORS */
 route(/.*/,cors);
