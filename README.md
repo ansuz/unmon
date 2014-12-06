@@ -41,6 +41,12 @@ The central philosophy behind **unmon** is that software should simplify repetit
 git clone https://github.com/ansuz/unmon.git
 ```
 
+or, if you're a citizen of Hyperboria:
+
+```
+http://gitboria.com/ansuz/unmon.git
+```
+
 ## Execution
 
 ```
