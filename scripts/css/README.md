@@ -31,6 +31,31 @@ The resulting JSON object will have the following structure:
     * selector => rules
       + attributes => value
 
+Here's an explicit example:
+
+```JSON
+{
+  "main":{
+    "body":{
+      "background":"#444"
+    }
+    ,"a":{
+      "color":"red"
+    }
+  }
+  ,"queries":[
+    {
+      "rules":{
+        "body":{
+          "background":"#666"
+        }
+      }
+      ,"expr":"@media (max-width:480px)"
+    }
+  ]
+}
+```
+
 ## Make your changes
 
 Maybe you've decided you don't want to use any media queries for a particular site. It's easy to get rid of them!
