@@ -13,7 +13,6 @@ var allLogs=fs.readdirSync(".")
     return line;
   });
 
-var uniqueKeys={};
 var unique={};
 
 ['referer','xfwd','url','user-agent','address'].map(function(k){
@@ -29,15 +28,10 @@ var countUnique=function(val,obj){
 var parsed=allLogs.map(function(line){
   return JSON.parse(line);
 }).map(function(obj){
-
-  Object.keys(unique).map(function(key){
-    countUnique(key,obj);
-  });
-
-  Object.keys(obj).map(function(k){
-    uniqueKeys[k]=1;
-  });
-
+  Object.keys(unique)
+    .map(function(key){
+      countUnique(key,obj);
+    });
 });
 
 console.log(unique);
