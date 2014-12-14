@@ -1,7 +1,5 @@
 var fs=require("fs");
 
-var log;
-
 var allLogs=fs.readdirSync(".")
   .filter(function(filename){
     return filename.match(/\.txt$/);
@@ -25,13 +23,14 @@ var countUnique=function(val,obj){
     unique[val][t]=(unique[val][t]||0)+1;
 };
 
-var parsed=allLogs.map(function(line){
-  return JSON.parse(line);
-}).map(function(obj){
-  Object.keys(unique)
-    .map(function(key){
-      countUnique(key,obj);
-    });
-});
+var parsed=allLogs
+  .map(function(line){
+    return JSON.parse(line);
+  }).map(function(obj){
+    Object.keys(unique)
+      .map(function(key){
+        countUnique(key,obj);
+      });
+  });
 
 console.log(unique);
