@@ -1,5 +1,4 @@
 var http=require("http");
-var fs=require("fs");
 
 var caching=require("./lib/cache.js");
 
@@ -13,7 +12,7 @@ var blag=require("./lib/blag.js")({
   path:process.env.PWD+"/md/"
   ,title:" "
   ,home:"index"
-  ,debug:false
+  ,debug:true
   ,pattern:'{\\w+}'
 });
 
