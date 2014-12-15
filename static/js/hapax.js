@@ -29,7 +29,8 @@ var render = function(key,back){
   if(!key)return;
   if(key in cache){
     console.log("rendering %s",key);
-    $('#main > .header > h1').html("[ "+key+" ]"); // set title of page.
+    document.title=key;
+    $('#main > .header > h1').html("[ /"+key+" ]"); // set title of page.
     $('#content').html(cache[key]);
     makeAnchors();
     // make in-page links behave like the nav bar
@@ -37,7 +38,9 @@ var render = function(key,back){
       // determine if it's a local link
       var $e=$(e);
       var link=$e.attr('href')||"!";
-      if(link[0]==='/'){ // it's a local link
+      if(link[0]==='/'&& // it's a local link
+        !link.match(/^\/assets\//) // and not an asset
+      ){
         $e.on('click',function(e){
           $.stop(e);
           render(link.slice(1));
