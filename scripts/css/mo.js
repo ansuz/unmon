@@ -71,9 +71,9 @@ mo.parseRule=function(rule){
       temp=attr.slice(1,-1);
       return "";
     }); 
-  O.sel=sel
-    .replace(/^\s*/,"")
-    .replace(/\s*/,"");
+  O.sel=sel.trim();
+//    .replace(/^\s*/,"")
+//    .replace(/\s*/,"");
   temp
     .split(";")
     .filter(function(rules){
@@ -88,7 +88,7 @@ mo.parseRule=function(rule){
         val=v.replace(/^\s+/,"");
         return "";
       });
-      O.rules[key]=val;
+      O.rules[key.trim()]=val;
     });
   return O;
 };
