@@ -14,6 +14,7 @@ var blag=require("./lib/blag.js")({
   ,home:"index"
   ,debug:false
   ,pattern:'{\\w+}'
+  ,timeformat:"toISOString" // "getTime", "toJSON", any Date() method
 });
 
 var nope=require("./lib/nope.js");
