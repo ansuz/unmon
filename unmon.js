@@ -6,7 +6,7 @@ var logger=require("./lib/logger.js")();
 
 var cors=require("./lib/cors.js");
 
-var fixed=require("./lib/fixed.js")(process.env.PWD+"/static");
+var fixed=require("./lib/fixed.js")(process.env.PWD+"/static","index.html");
 
 var blag=require("./lib/blag.js")({
   path:process.env.PWD+"/md/"
@@ -42,11 +42,16 @@ route(/.*/,cors);
 /* Logger */
 route(/.*/,logger);
 
-/* teh blag */
-route(/.*/,blag);
+/* root */
+route(/^\//,blag);
 
 /* Route static files */
 route(/.*/,fixed);
+
+/* teh blag */
+route(/.*/,blag);
+
+
 
 route(/.*/,f404);
 
