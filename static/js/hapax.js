@@ -38,9 +38,7 @@ var render = function(key,back){
       // determine if it's a local link
       var $e=$(e);
       var link=$e.attr('href')||"!";
-      if(link[0]==='/'&& // it's a local link
-        !link.match(/\.\w+/)) // and not an asset
-      {
+      if(link.match(/^\/.*/)&&!link.match(/\.\w+/)){
         $e.on('click',function(e){
           $.stop(e);
           render(link.slice(1));
