@@ -102,3 +102,5 @@ var classOrId=parsed
     return t.class||t.id;
   });
 ```
+
+The idea is that this should help you determine which CSS rules can be eliminated. Fewer assets means faster pages.
