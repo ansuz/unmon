@@ -12,7 +12,7 @@ var blag=require("./lib/blag.js")({
   path:process.env.PWD+"/md/"
   ,title:" "
   ,home:"index"
-  ,debug:true
+  ,debug:false
   ,pattern:'{\\w+}'
 });
 
@@ -42,11 +42,11 @@ route(/.*/,cors);
 /* Logger */
 route(/.*/,logger);
 
-/* Route static files */
-route(/.*/,fixed);
-
 /* teh blag */
 route(/.*/,blag);
+
+/* Route static files */
+route(/.*/,fixed);
 
 route(/.*/,f404);
 
