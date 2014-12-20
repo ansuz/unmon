@@ -72,8 +72,6 @@ mo.parseRule=function(rule){
       return "";
     }); 
   O.sel=sel.trim();
-//    .replace(/^\s*/,"")
-//    .replace(/\s*/,"");
   temp
     .split(";")
     .filter(function(rules){
@@ -104,7 +102,7 @@ mo.parseQuery=function(q){
   };
 
   var body=q.replace(/^@[^\{]*/,function(e){
-      Q.expr=e;
+      Q.expr=e.replace(/\s+/," ");
       return "";
     });
 
@@ -120,12 +118,6 @@ mo.parseQuery=function(q){
         });
     }); 
   return Q;
-};
-
-mo.not=function(key){ // just another battle
-  return function(k){ // in the never ending war
-    return !k.match(new RegExp(key)); // against boilerplate
-  }; // lest we forget
 };
 
 mo.objectify=function(rules){
@@ -196,6 +188,43 @@ mo.queryToText=function(mq){
 
 mo.print=function(json){
   console.log(util.inspect(json,false,null));
+};
+
+mo.clone=function(A){
+  return JSON.parse(JSON.stringify(A));
+};
+
+mo.merge=function(a,b){ // merge two CSS objects together
+  // clone so you aren't mutating the referenced objects
+  var A=mo.clone(a);
+  var B=mo.clone(b);
+
+  var AMsel=Object.keys(A.main);
+
+  Object.keys(B.main).filter(function(sel){ // get just the selectors not in A
+    return AMsel.indexOf(sel)===-1;
+  }).map(function(sel){ // copy them to A
+    A.main[sel]=mo.clone(B.main[sel]);
+    delete B.main[sel]; // delete the original
+  });
+
+  Object.keys(B.main).map(function(sel){ // these are the keys they share
+    Object.keys(B.main[sel])
+      .map(function(attr){
+        A.main[sel][attr]=B.main[sel][attr];
+        delete B.main[sel][attr];
+      })
+    });
+
+  /* YAY! */
+
+
+
+
+  // iterate over media queries
+    // same as above
+   
+  return A;
 };
 
 mo.toCSS=function(json){
