@@ -218,12 +218,30 @@ mo.merge=function(a,b){ // merge two CSS objects together
 
   /* YAY! */
 
+  var comp=A.queries.map(function(q){return q.expr;});
 
-
-
-  // iterate over media queries
-    // same as above
-   
+  B.queries.map(function(query,i){
+    var ind=comp.indexOf(query.expr);
+    if(ind===-1){
+      A.queries.push(query);
+    }else{
+      var remainder=[];
+      Object.keys(B.queries[i].rules)
+        .filter(function(rule){
+          var result=!(rule in A.queries[ind].rules);
+          remainder.push(rule);
+          return result;
+        })
+        .map(function(x){
+          A.queries[ind].rules[x]=B.queries[i].rules[x];
+          delete B.queries[i].rules[x];
+        });
+        /* Then just merge whatever remains */
+        remainder.map(function(rule){
+          A.queries[ind].rules[rule]=B.queries[i].rules[rule];  
+        });
+    }
+  });
   return A;
 };
 
