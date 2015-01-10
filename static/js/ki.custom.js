@@ -1,4 +1,7 @@
 !function (b, c, d, e) {
+
+/* document | [] | prototype | null */
+
   /*
    * init function (internal use)
    * a = selector, dom element or function
@@ -13,7 +16,8 @@
    * http://www.dustindiaz.com/smallest-domready-ever
    * returns instance or executes function on ready
    */
-  $ = function (a) {
+  $=function (a) {
+    // no dependencies
     return /^f/.test(typeof a)?  
              /c/.test(b.readyState)?
                a():
@@ -24,11 +28,9 @@
   // set ki prototype
   $[d] = i[d] = {
 
-    // default length
-    length: 0,
+    length: 0, // default length
 
-    /*
-     * on method
+    /* on method
      * a = string event type i.e 'click'
      * b = function
      * return this
@@ -39,8 +41,7 @@
       })
     },
 
-    /*
-     * off method
+    /* off method
      * a = string event type i.e 'click'
      * b = function
      * return this
@@ -66,7 +67,7 @@
     // representation instead of an object
     splice: c.splice
   }
-}(document, [], 'prototype');
+}(/*b*/document,/*c*/[],/*d*/'prototype'/*e*/);
 
 // taken from ki.extend.js
 (function() {
@@ -267,15 +268,19 @@ $.param = function(obj, prefix) {
 
 $.ajax = function(url,b,c){  // a tiny little ajax function
   c=c||b;
-//  var type = (typeof(b) === 'object') ?"POST":"GET";
-  var type="GET";
+  var type = (typeof(b) === 'object') ?"POST":"GET";
   var xmlHTTP = new XMLHttpRequest();
   xmlHTTP.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200)
       c(this.responseText);
   }
   xmlHTTP.open(type, url, true);
-  xmlHTTP.send();
+  xmlHTTP.send(type==='POST'?
+    Object.keys(b)
+      .map(function(k){
+        return k+'='+b[k];
+      }).join('&'):null);
+
 };
 
 })();
