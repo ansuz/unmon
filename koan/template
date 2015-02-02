@@ -15,10 +15,6 @@
     <ul class="nav">
       <?js php.header={
   Home:'/'
-  ,Code:'unmon'
-  ,Fonts:'fonts'
-  ,Web:'web'
-  ,Blag:'blog'
 };
 ansuz.keys(php.header)
   .map(function(x){
