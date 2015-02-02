@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><?js echo((req.url!=='/')?'unmon::'+req.url:'transitionTech'); js?></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--  <script type="text/javascript" src="/js/ki.hack.js"></script> -->
+  <link rel="stylesheet" href="/css/tech.alt.css"/>
+  <link rel="stylesheet" href="/css/tech-font.css"/>
+</head>
+<body>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" value="≡" autofocus />
+<label for="nav-trigger">≡</label>
+  <div class="fixed">
+    <ul class="nav">
+      <?js php.header={
+  Home:'/'
+  ,Code:'unmon'
+  ,Fonts:'fonts'
+  ,Web:'web'
+  ,Blag:'blog'
+};
+ansuz.keys(php.header)
+  .map(function(x){
+    echo('<li><a href="ᚨ">x</a><li>\n '
+      .replace(/x/,x)
+      .replace(/ᚨ/,php.header[x])
+      );
+  }); js?>
+    </ul>
+  </div>
+  <div class="content"><?md {CONTENT} md?>
