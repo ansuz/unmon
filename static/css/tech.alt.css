@@ -1,0 +1,147 @@
+/* generated with unmon */
+
+.fixed{
+  position:fixed;
+  margin-top:0px;
+  margin-left:0px;
+  width:100vw;
+/*  background:#222; */
+}
+.nav *{
+  z-index:5;
+  background:#222;
+}
+.nav {
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:flex-end;
+  list-style:none;
+  margin:0;
+  padding:0px;
+  letter-spacing:0.26em;
+  -webkit-flex-flow:row wrap;
+  margin-left:0px;
+  margin-top:1vw;
+}
+.nav a:hover {
+  color:#bbb;
+}
+.nav a {
+  text-decoration:none;
+  display:inline-block;
+  padding-right:2em;
+  padding-left:1em;
+  color:#9a9;
+  padding-top:0px;
+  border-bottom:1px solid #555;
+}
+a {
+  color:#5C5;
+}
+a:hover {
+  color:#5E5;
+}
+pre {
+  width:50rem;
+  background:rgba(20,20,20,0.5);
+  padding:5px;
+  overflow-x:auto;
+}
+body {
+  background:#222;
+  color:#898;
+  margin:0px;
+  padding:0px;
+}
+.content{
+  margin-left:2vw;
+  padding-top:5vh;
+  background:#222;
+  z-index:10;
+  width:80vw;
+  padding-left:1vw;
+}
+.content ul li{
+  list-style:square;
+}
+.nav-trigger{
+  display:none;
+}
+label[for="nav-trigger"]{
+  display:none;
+}
+
+/* phone and zoomed large */
+@media all and (max-width: 800px) {
+  body{
+    overflow-x:hidden;
+  }
+  .content {
+    min-height: 100vh;
+    width:95vw;
+    position: relative;
+    atop: 0;
+    left: 0;
+    z-index: 1;
+    padding-top:15vh;
+  }
+  pre,blockquote,code {
+    width:90vw;
+    max-width:100vw;
+    overflow-x:scroll;
+  }
+
+  /* navigation stuff */
+  .nav a {
+    text-decoration:none;
+    padding-left:1em;
+    padding-top:1em;
+    color:#9a9;
+    border-bottom:0px;
+  }
+  .nav {
+    display:block;
+    width: 100%;
+    height: 100vh;
+    max-height:100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+  }
+  .fixed ul li{
+    width: 200px;
+  }
+  .fixed a {
+    display: block;
+    transition: color 0.2s, background 0.5s;
+  }
+
+  /* nothing but nav-trigger */
+  .nav-trigger {
+    display:inline;
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+  }
+  label[for="nav-trigger"] {
+    display:inline;
+    position: fixed;
+    left: 15px; top: 15px;
+    z-index: 2;
+    font-size:3em;
+    color:#777;
+  }
+  .nav-trigger + label, .content {
+    transition: left 0.2s;
+  }
+  .nav-trigger:checked + label {
+    left: 215px;
+    color:#888;
+  }
+  .nav-trigger:checked ~ .content {
+    left: 200px;
+    border-left:1px solid #444;
+  }
+}
