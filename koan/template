@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--  <script type="text/javascript" src="/js/ki.hack.js"></script> -->
   <link rel="stylesheet" href="/css/tech.alt.css"/>
-  <link rel="stylesheet" href="/css/tech-font.css"/>
 </head>
 <body>
 <input type="checkbox" id="nav-trigger" class="nav-trigger" value="≡" autofocus />
