@@ -1,11 +1,6 @@
 var http=require("http");
 
-process.on('uncaughtException',function(err){
-  // this is a really dirty way to keep your server alive
-  // but it's preferable to letting it die
-  // in the future there will be a domain based solution
-  console.log('Caught exception: ' + err);
-});
+global.logError=require("./lib/error.js")();
 
 /* Your default stack */
 var routes=[];
@@ -44,7 +39,9 @@ route(/.*/,require("./lib/logger.js")({path:process.env.PWD+'/log/'}));
 route(/.*/,require("./lib/posted.js")());
 
 /* koan */
-route(/.*/,require("./lib/koan.js")());
+route(/.*/,require("./lib/koan.js")({
+  error:logError
+}));
 
 /* Route static files */
 route(/.*/,require("./lib/fixed")(process.env.PWD+"/static","index.html"));
