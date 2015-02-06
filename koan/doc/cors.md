@@ -12,3 +12,30 @@ It needs no configuration, but optionally accepts an object with the following a
   + defaults to '*'
 * headers
   + defaults to 'X-Requested-With'
+
+### Adding cors.js to your unmon instance
+
+It works without any parameters, if you're okay with the default setup.
+
+```Javascript
+/* Enable CORS headers for api access */
+  route(/.*/,require("./lib/cors.js")());
+```
+
+Otherwise, pass it an object:
+
+```Javascript
+route(/.*/,require("./lib/cors.js")({
+  // allow remote users to post and put
+  methods:['GET','POST','PUT']
+  // but only if they're navigating from example.io
+  ,origin:'https://example.io'
+});
+```
+
+If you only want certain urls to support cors, specify that in your regex:
+
+```Javascript
+/* only if the url contains CORS (case insensitive) */
+route(/.*CORS.*/i,require("./lib/cors.js")());
+```
