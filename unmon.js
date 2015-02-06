@@ -39,6 +39,9 @@ var makeRouter=unmon.makeRouter=function(stack){
 if(require.main === module){
   console.log("Running unmon as standalone script");
 
+  var __dirname=process.argv[1].replace(/\/[^\/]*$/,'');
+  console.log(__dirname);
+
   /* instantiate error logging behaviour
     this catches ALL uncaught exceptions
     which is possibly a security risk if your server SHOULD crash */
@@ -64,7 +67,9 @@ if(require.main === module){
   }));
 
   /* find and serve static files */
-  route(/.*/,require("./lib/fixed")(process.env.PWD+"/static","index.html"));
+  route(/.*/,require("./lib/fixed")({
+    path:__dirname+'/static'
+  }));
 
   /* load the blag plugin for serving templated markdown files */
   route(/.*/,require("./lib/blag.js")({path:process.env.PWD+"/md/",title:" "}));
