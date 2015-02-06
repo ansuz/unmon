@@ -1,7 +1,6 @@
 var http=require("http");
 var unmon={};
 
-
 /* Your default stack */
 var routes=unmon.routes=[];
 
@@ -48,7 +47,7 @@ if(require.main === module){
   /* This is where you add your routes */
 
   /* infer appropriate caching behaviour from requested urls */
-  route(/.*/,require("./lib/cache"));
+  route(/.*/,require("./lib/cache")());
 
   /* Enable CORS headers for api access */
   route(/.*/,require("./lib/cors.js")());
