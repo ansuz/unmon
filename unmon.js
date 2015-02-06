@@ -51,7 +51,7 @@ if(require.main === module){
   route(/.*/,require("./lib/cache"));
 
   /* Enable CORS headers for api access */
-  route(/.*/,require("./lib/cors.js"));
+  route(/.*/,require("./lib/cors.js")());
 
   /* Log all requests to file */
   route(/.*/,require("./lib/logger.js")({path:process.env.PWD+'/log/'}));
