@@ -71,6 +71,10 @@ if(require.main === module){
     path:__dirname+'/static'
   }));
 
+  route(/\/shared\/.*/,require("./lib/directive")({
+    path:__dirname+'/static/'
+  }));
+
   /* load the blag plugin for serving templated markdown files */
   route(/.*/,require("./lib/blag.js")({path:process.env.PWD+"/md/",title:" "}));
 
