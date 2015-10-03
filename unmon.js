@@ -4,6 +4,26 @@ var unmon={};
 /* Your default stack */
 var routes=unmon.routes=[];
 
+var debug=unmon.debug=true;
+
+var plugin=unmon.plugin=function(name){
+    var mod;
+    
+    if(unmon.debug){
+        console.log("Loading %s plugin",name);
+    }
+
+    try{
+        mod=require("./lib/"+name);
+    }catch(err){
+        if(unmon.debug){
+            console.error("Error loading %s",name);
+            console.error(err);
+        }
+    }
+    return mod;
+};
+
 /* route produces new routes, and pushes them to a stack */
 var route=unmon.route=function(patt,f,opts){
     opts=opts||{}; // you don't have to provide options
@@ -45,41 +65,41 @@ if(require.main === module){
     /* instantiate error logging behaviour
         this catches ALL uncaught exceptions
         which is possibly a security risk if your server SHOULD crash */
-    global.logError=require("./lib/error.js")();
+    global.logError=plugin('error')();
 
     /* This is where you add your routes */
 
     /* infer appropriate caching behaviour from requested urls */
-    route(/.*/,require("./lib/cache")());
+    route(/.*/,plugin('cache')());
 
     /* Enable CORS headers for api access */
-    route(/.*/,require("./lib/cors.js")());
+    route(/.*/,plugin('cors')());
 
     /* Log all requests to file */
-    route(/.*/,require("./lib/logger.js")({path:process.env.PWD+'/log/'}));
+    route(/.*/,plugin('logger')({path:process.env.PWD+'/log/'}));
 
     /* Process post requests and export them as req.postdata */
-    route(/.*/,require("./lib/posted.js")());
+    route(/.*/,plugin('posted')());
 
     /* Templating and serverside scripting */
-    route(/.*/,require("./lib/koan.js")({
+    route(/.*/,plugin('koan')({
         error:logError
     }));
 
     /* find and serve static files */
-    route(/.*/,require("./lib/fixed")({
+    route(/.*/,plugin('fixed')({
         path:__dirname+'/static'
     }));
 
-    route(/\/shared\/.*/,require("./lib/directive")({
+    route(/\/shared\/.*/,plugin('directive')({
         path:__dirname+'/static/'
     }));
 
     /* load the blag plugin for serving templated markdown files */
-    route(/.*/,require("./lib/blag.js")({path:process.env.PWD+"/md/",title:" "}));
+    route(/.*/,plugin('blag')({path:process.env.PWD+"/md/",title:" "}));
 
     /* 404 as a last resort */
-    route(/.*/,require("./lib/parcel.js")(process.env.PWD+"/static/html/404.html"));
+    route(/.*/,plugin('parcel')(process.env.PWD+"/static/html/404.html"));
 
     // produce a new router
     var router=makeRouter(routes)
@@ -92,7 +112,7 @@ if(require.main === module){
 
     // check if you have a unique local ipv6 address
     (function(){
-        global.thisServersIPV6=require("./lib/fc.js")();
+        global.thisServersIPV6=plugin('fc')();
         if(thisServersIPV6)
             addresses.push(thisServersIPV6[0]);
     })();
