@@ -36,6 +36,25 @@ var route=unmon.route=function(patt,f,opts){
         return;
     }
 
+    if(typeof patt === 'string'){
+        if(unmon.debug){
+            console.log("[ROUTE DEBUG]: Got a string instead of a regular expression.\n...Attempting to convert");
+        }
+        patt=patt
+        // support 'globbing'
+        .replace(/\*/g,function(esc){
+            return '.'+esc;
+        })
+        // escape relevant characters, I'm sure this is incomplete.
+        .replace(/[\\\/\-\+\?\{\}\(\)\[\]\^\$\.]/g,function(esc){
+            return '\\'+esc;
+        });
+        if(unmon.debug){
+            console.log("[ROUTE DEBUG]: Route expression is %s",patt);
+        }
+        patt=new RegExp(patt);
+    }
+
     // push your new route to the stack in question
     opts.stack.push(function(req,res,Next){
         // encapsulate Next so that we don't always have to pass req and res
