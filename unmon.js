@@ -31,6 +31,11 @@ var route=unmon.route=function(patt,f,opts){
     opts.disc=opts.disc||'url'; // your router parses by url by default
     opts.stack=opts.stack||routes; // you can provide an alternate stack
 
+    if(typeof f !== 'function'){
+        console.error("[ROUTE ERROR]: Second argument provided to unmon.route (%s) is not a function. ignoring...\n",f);
+        return;
+    }
+
     // push your new route to the stack in question
     opts.stack.push(function(req,res,Next){
         // encapsulate Next so that we don't always have to pass req and res
