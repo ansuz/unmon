@@ -57,6 +57,13 @@ var route=unmon.route=function(patt,f,opts){
 
     // push your new route to the stack in question
     opts.stack.push(function(req,res,Next){
+        if(typeof Next !== 'function'){
+            Next=function(req,res){
+                res.statusCode=404;
+                res.end('404');
+            };
+        }
+
         // encapsulate Next so that we don't always have to pass req and res
         var next=function(){Next(req,res);};
         if(patt.test(req[opts.disc])){
@@ -71,17 +78,23 @@ var route=unmon.route=function(patt,f,opts){
         which is compatible with the NodeJS http api
         of the form function(request,response)    */
 var makeRouter=unmon.makeRouter=function(stack){
+    stack=stack||unmon.routes;
     return stack.reduceRight(function(b,a,i,z){
         return function(req,res){
             a(req,res,b);
         };
-    });
+    },[]);
+};
+
+var createServer=unmon.createServer=function(callback){
+    callback=callback||makeRouter();
+    return http.createServer(callback);
 };
 
 /* If being run as a standalone server, load routes and launch a server */
 
 if(require.main === module){
-    console.log("Running unmon as standalone script");
+    // Running unmon as standalone script
 
     var __dirname=process.argv[1].replace(/\/[^\/]*$/,'');
     console.log(__dirname);
@@ -153,6 +166,5 @@ if(require.main === module){
 }else{
     /*    If this module is being loaded as a library by another file
             just export the router functions */
-    console.log("Exporting unmon as a library.");
     module.exports=unmon;
 }
