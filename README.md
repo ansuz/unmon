@@ -77,6 +77,6 @@ Ummon: "Begin walking it!"
 1. My [youtube channel](https://www.youtube.com/channel/UCsHvLE74rKF9WZItaG7TUYw) has a few tutorials.
 2. Learn about [Markdown](http://markdowntutorial.com/) (**unmon** uses [marked](https://github.com/chjj/marked) by [chjj](https://github.com/chjj))
 3. Learn some Javascript, HTML, and CSS at [Codecademy](http://www.codecademy.com/)
-4. See the [docs](https://github.com/ansuz/unmon/tree/master/koan/docs) folder, also available locally in your filesystem and via your webserver as soon as you launch it.
+4. See the [doc](https://github.com/ansuz/unmon/tree/master/koan/doc) folder, also available locally in your filesystem and via your webserver as soon as you launch it.
 
 
