@@ -1,6 +1,6 @@
 {
   "name": "unmon",
-  "version": "0.0.11",
+  "version": "0.2.0",
   "description": "zen blagging",
   "main": "unmon.js",
   "scripts": {
@@ -12,7 +12,9 @@
   },
   "keywords": [
     "web",
-    "markdown"
+    "markdown",
+    "templating",
+    "less"
   ],
   "author": {
     "name": "ansuz"
